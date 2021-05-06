@@ -31,5 +31,5 @@ HRMS人事管理系统后端
 * 如果有分页的需求，可以让定义的DTO继承自`PagingQueryDTO`，无需自己再定义分页参数
 * 每个pojo都要加`@Getter`、`@Setter`和`@ToString`
 * 参数校验异常会自动封装成`Result`并返回给客户端
-* 所有Controller返回的结果要用`Result`封装起来
+* 所有Controller返回的结果要用`Result`封装起来，并且全部都是`PostMapping`
 * 如果service执行过程中需要报错，需要在`Status`中定义一个新的状态码，然后在代码中throw一个`BizException`并把状态码传入，统一异常处理会把错误信息封装成`Result`返回给客户端
