@@ -1,0 +1,18 @@
+package byx.project.hrms.pojo.dto;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+import javax.validation.constraints.NotNull;
+
+/**
+ * 用于删除员工的数据传输对象
+ *
+ * @author byx
+ */
+@Getter @Setter @ToString
+public class EmployeeDeleteDTO {
+    @NotNull(message = "empNo不能为空")
+    private String empNo;
+}
