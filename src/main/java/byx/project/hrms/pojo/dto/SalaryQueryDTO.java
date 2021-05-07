@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.validation.constraints.NotNull;
-
 /**
  * 薪资查询对象
  *
@@ -16,4 +14,6 @@ public class SalaryQueryDTO extends PagingQueryDTO {
     private String time;
     private String empNo;
     private String empName;
+    private String orderBy;
+    private Boolean isDesc;
 }
