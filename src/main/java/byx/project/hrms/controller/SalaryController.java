@@ -1,6 +1,7 @@
 package byx.project.hrms.controller;
 
 import byx.project.hrms.common.Result;
+import byx.project.hrms.pojo.dto.SalaryInsertDTO;
 import byx.project.hrms.pojo.dto.EmployeeSalaryListQueryDTO;
 import byx.project.hrms.pojo.dto.SalaryQueryDTO;
 import byx.project.hrms.pojo.vo.EmployeeSalaryListItemVO;
@@ -41,5 +42,14 @@ public class SalaryController {
     @PostMapping("/query")
     public Result<List<EmployeeSalaryListItemVO>> query(@RequestBody @Validated EmployeeSalaryListQueryDTO dto) {
         return Result.success(salaryService.getEmployeeSalaryList(dto));
+    }
+
+    /**
+     * 插入薪资记录
+     */
+    @PostMapping("/insert")
+    public Result<?> insert(@RequestBody @Validated SalaryInsertDTO dto) {
+        salaryService.insertSalary(dto);
+        return Result.success();
     }
 }
