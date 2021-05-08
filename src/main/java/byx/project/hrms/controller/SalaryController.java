@@ -1,7 +1,9 @@
 package byx.project.hrms.controller;
 
 import byx.project.hrms.common.Result;
+import byx.project.hrms.pojo.dto.EmployeeSalaryListQueryDTO;
 import byx.project.hrms.pojo.dto.SalaryQueryDTO;
+import byx.project.hrms.pojo.vo.EmployeeSalaryListItemVO;
 import byx.project.hrms.pojo.vo.SalaryItemVO;
 import byx.project.hrms.service.SalaryService;
 import com.github.pagehelper.PageInfo;
@@ -31,5 +33,13 @@ public class SalaryController {
     @PostMapping("/list")
     public Result<PageInfo<SalaryItemVO>> list(@RequestBody @Validated SalaryQueryDTO dto) {
         return Result.success(salaryService.getSalaryList(dto));
+    }
+
+    /**
+     * 查询指定员工的薪资记录
+     */
+    @PostMapping("/query")
+    public Result<List<EmployeeSalaryListItemVO>> query(@RequestBody @Validated EmployeeSalaryListQueryDTO dto) {
+        return Result.success(salaryService.getEmployeeSalaryList(dto));
     }
 }

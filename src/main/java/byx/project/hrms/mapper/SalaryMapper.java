@@ -1,9 +1,12 @@
 package byx.project.hrms.mapper;
 
+import byx.project.hrms.pojo.dto.EmployeeSalaryListQueryDTO;
 import byx.project.hrms.pojo.dto.SalaryQueryDTO;
+import byx.project.hrms.pojo.vo.EmployeeSalaryListItemVO;
 import byx.project.hrms.pojo.vo.SalaryItemVO;
 import byx.project.hrms.util.DateUtils;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.jdbc.SQL;
 
@@ -21,6 +24,15 @@ public interface SalaryMapper {
      */
     @SelectProvider(type = SqlProvider.class, method = "list")
     List<SalaryItemVO> list(SalaryQueryDTO dto);
+
+    /**
+     * 查询指定员工的薪资记录
+     */
+    @Select("SELECT s.salary AS salary, s.time AS time " +
+            "FROM salary s JOIN employee e ON s.empId = e.id " +
+            "WHERE e.empNo = #{empNo} " +
+            "ORDER BY s.time")
+    List<EmployeeSalaryListItemVO> query(EmployeeSalaryListQueryDTO dto);
 
     class SqlProvider {
         public String list(SalaryQueryDTO dto)
