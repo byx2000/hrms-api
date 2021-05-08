@@ -28,10 +28,11 @@ public interface SalaryMapper {
     /**
      * 查询指定员工的薪资记录
      */
-    @Select("SELECT s.salary AS salary, s.time AS time " +
+    /*@Select("SELECT s.salary AS salary, s.time AS time " +
             "FROM salary s JOIN employee e ON s.empId = e.id " +
             "WHERE e.empNo = #{empNo} " +
-            "ORDER BY s.time")
+            "ORDER BY s.time")*/
+    @Select("SELECT salary, time FROM salary WHERE empId = #{empId}")
     List<EmployeeSalaryListItemVO> query(EmployeeSalaryListQueryDTO dto);
 
     class SqlProvider {
@@ -43,7 +44,7 @@ public interface SalaryMapper {
                         dto.setTime(DateUtils.now());
                     }
 
-                    SELECT("e.empNo AS empNo, e.name AS empName, s.salary AS salary, t.time AS time, d.name AS deptName");
+                    SELECT("e.id AS empId, e.empNo AS empNo, e.name AS empName, s.salary AS salary, t.time AS time, d.name AS deptName");
                     FROM("(SELECT empId AS empId, MAX(time) AS time FROM salary WHERE time <= #{time} GROUP BY empId) t");
                     JOIN("employee e ON t.empId = e.id");
                     JOIN("salary s ON s.empId = t.empId AND s.time = t.time");

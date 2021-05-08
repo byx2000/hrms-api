@@ -13,6 +13,6 @@ import javax.validation.constraints.NotNull;
  */
 @Getter @Setter @ToString
 public class EmployeeSalaryListQueryDTO {
-    @NotNull(message = "empNo不能为空")
-    private String empNo;
+    @NotNull(message = "empId不能为空")
+    private Integer empId;
 }
