@@ -11,6 +11,7 @@ import lombok.ToString;
  */
 @Getter @Setter @ToString
 public class AttendanceListItemVO {
+    private Integer empId;
     private String empNo;
     private String empName;
     private Integer type;

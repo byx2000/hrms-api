@@ -25,7 +25,7 @@ public interface AttendanceMapper {
         public String list(AttendanceListQueryDTO dto) {
             return new SQL(){
                 {
-                    SELECT("e.empNo AS empNo, e.name AS empName, a.type AS type, a.date AS date, a.time AS time");
+                    SELECT("e.id AS empId, e.empNo AS empNo, e.name AS empName, a.type AS type, a.date AS date, a.time AS time");
                     FROM("employee e JOIN attendance a ON e.id = a.empId");
 
                     WHERE("a.date = #{date}");
