@@ -1,8 +1,11 @@
 package byx.project.hrms.mapper;
 
 import byx.project.hrms.pojo.dto.AttendanceListQueryDTO;
+import byx.project.hrms.pojo.dto.AttendanceTimeItemDTO;
 import byx.project.hrms.pojo.vo.AttendanceListItemVO;
+import byx.project.hrms.pojo.vo.LatestWeekAttendanceItemVO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
 import org.apache.ibatis.jdbc.SQL;
 
@@ -20,6 +23,18 @@ public interface AttendanceMapper {
      */
     @SelectProvider(type = SqlProvider.class, method = "list")
     List<AttendanceListItemVO> list(AttendanceListQueryDTO dto);
+
+    /**
+     * 获取考勤时间列表
+     */
+    @Select("SELECT date, time " +
+            "FROM attendance " +
+            "WHERE empId = #{empId} " +
+            "AND type = #{type} " +
+            "AND date >= #{begin} " +
+            "AND date <= #{end} " +
+            "ORDER BY date")
+    List<AttendanceTimeItemDTO> listTime(Integer empId, String begin, String end, Integer type);
 
     class SqlProvider {
         public String list(AttendanceListQueryDTO dto) {
