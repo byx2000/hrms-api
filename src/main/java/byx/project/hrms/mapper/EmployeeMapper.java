@@ -59,6 +59,7 @@ public interface EmployeeMapper {
             "VALUES(#{name}, #{gender}, #{age}, #{contact}, #{deptId}, #{posId}, #{type}, #{desc})")
     void insert(EmployeeInsertDTO dto);
 
+
     class SqlProvider {
         public String list(EmployeeListQueryDTO dto) {
             return new SQL(){
