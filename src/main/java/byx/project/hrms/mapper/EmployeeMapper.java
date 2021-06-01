@@ -3,6 +3,7 @@ package byx.project.hrms.mapper;
 import byx.project.hrms.pojo.dto.*;
 import byx.project.hrms.pojo.vo.EmployeeDetailVO;
 import byx.project.hrms.pojo.vo.EmployeeListItemVO;
+import byx.project.hrms.pojo.vo.PositionDetailVO;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.jdbc.SQL;
 
@@ -40,6 +41,16 @@ public interface EmployeeMapper {
             "WHERE empNo = #{empNo}")
     EmployeeDetailVO get(EmployeeDetailQueryDTO dto);
 
+    @Select("""
+            SELECT e.empNo as empNo,
+                   e.name AS name,
+                   e.contact AS contact
+            FROM   employee e
+            JOIN   position p ON e.posID = p.id
+            WHERE  p.posNo = #{posNo}
+            """)
+    List<PositionDetailVO.EmployeeVO> getByPosNo(PositionDetailQueryDTO dto);
+
     /**
      * 更新员工信息
      */
@@ -58,7 +69,6 @@ public interface EmployeeMapper {
     @Insert("INSERT INTO employee(name, gender, age, contact, deptId, posId, type, desc) " +
             "VALUES(#{name}, #{gender}, #{age}, #{contact}, #{deptId}, #{posId}, #{type}, #{desc})")
     void insert(EmployeeInsertDTO dto);
-
 
     class SqlProvider {
         public String list(EmployeeListQueryDTO dto) {
