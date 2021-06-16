@@ -3,6 +3,7 @@ package byx.project.hrms.controller;
 import byx.project.hrms.common.Result;
 import byx.project.hrms.pojo.vo.EmployeeAgeReportVO;
 import byx.project.hrms.pojo.vo.EmployeeGenderReportVO;
+import byx.project.hrms.pojo.vo.EmployeeTypeReportVO;
 import byx.project.hrms.service.EmployeeReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,5 +35,13 @@ public class EmployeeReportController {
     @PostMapping("/gender")
     public Result<EmployeeGenderReportVO> gender() {
         return Result.success(employeeReportService.getEmployeeGenderReport());
+    }
+
+    /**
+     * 获取类型报表
+     */
+    @PostMapping("/type")
+    public Result<EmployeeTypeReportVO> type() {
+        return Result.success(employeeReportService.getEmployeeTypeReport());
     }
 }
