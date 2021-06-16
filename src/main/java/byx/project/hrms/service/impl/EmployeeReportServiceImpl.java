@@ -2,6 +2,7 @@ package byx.project.hrms.service.impl;
 
 import byx.project.hrms.mapper.EmployeeReportMapper;
 import byx.project.hrms.pojo.vo.EmployeeAgeReportVO;
+import byx.project.hrms.pojo.vo.EmployeeGenderReportVO;
 import byx.project.hrms.service.EmployeeReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,14 @@ public class EmployeeReportServiceImpl implements EmployeeReportService {
         vo.setLabels(labels);
         vo.setValues(values);
 
+        return vo;
+    }
+
+    @Override
+    public EmployeeGenderReportVO getEmployeeGenderReport() {
+        EmployeeGenderReportVO vo = new EmployeeGenderReportVO();
+        vo.setMaleCount(employeeReportMapper.countByGender(0));
+        vo.setFemaleCount(employeeReportMapper.countByGender(1));
         return vo;
     }
 }
