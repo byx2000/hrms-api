@@ -13,16 +13,10 @@ import org.apache.ibatis.jdbc.SQL;
 @Mapper
 public interface EmployeeReportMapper {
     /**
-     * 获取指定年龄区间的员工数量
+     * 根据年龄区间和性别获取员工数量
      */
-    @SelectProvider(type = SqlProvider.class, method = "countByAge")
-    int countByAge(Integer min, Integer max);
-
-    /**
-     * 获取指定性别的员工数量（0为男，1为女）
-     */
-    @Select("SELECT COUNT(0) FROM employee WHERE gender = #{gender}")
-    int countByGender(Integer gender);
+    @SelectProvider(type = SqlProvider.class, method = "countByAgeAndGender")
+    int countByAgeAndGender(Integer minAge, Integer maxAge, Integer gender);
 
     /**
      * 获取指定类型的员工数量（0为实习生，1为正式员工）
@@ -31,16 +25,19 @@ public interface EmployeeReportMapper {
     int countByType(Integer type);
 
     class SqlProvider {
-        public String countByAge(Integer min, Integer max) {
+        public String countByAgeAndGender(Integer minAge, Integer maxAge, Integer gender) {
             return new SQL(){
                 {
                     SELECT("COUNT(0)");
                     FROM("employee");
-                    if (min != null) {
-                        WHERE("age >= #{min}");
+                    if (minAge != null) {
+                        WHERE("age >= #{minAge}");
                     }
-                    if (max != null) {
-                        WHERE("age <= #{max}");
+                    if (maxAge != null) {
+                        WHERE("age <= #{maxAge}");
+                    }
+                    if (gender != null) {
+                        WHERE("gender = #{gender}");
                     }
                 }
             }.toString();

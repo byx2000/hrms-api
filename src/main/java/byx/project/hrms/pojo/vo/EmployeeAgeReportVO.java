@@ -4,8 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.List;
-
 /**
  * 员工年龄报表视图对象
  *
@@ -13,6 +11,7 @@ import java.util.List;
  */
 @Getter @Setter @ToString
 public class EmployeeAgeReportVO {
-    private List<String> labels;
-    private List<Integer> values;
+    private String label;
+    private Integer maleCount;
+    private Integer femaleCount;
 }

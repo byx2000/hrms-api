@@ -2,7 +2,6 @@ package byx.project.hrms.service.impl;
 
 import byx.project.hrms.mapper.EmployeeReportMapper;
 import byx.project.hrms.pojo.vo.EmployeeAgeReportVO;
-import byx.project.hrms.pojo.vo.EmployeeGenderReportVO;
 import byx.project.hrms.pojo.vo.EmployeeTypeReportVO;
 import byx.project.hrms.service.EmployeeReportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,31 +21,21 @@ public class EmployeeReportServiceImpl implements EmployeeReportService {
     private EmployeeReportMapper employeeReportMapper;
 
     @Override
-    public EmployeeAgeReportVO getEmployeeAgeReport() {
-        List<String> labels = new ArrayList<>();
-        List<Integer> values = new ArrayList<>();
+    public List<EmployeeAgeReportVO> getEmployeeAgeReport() {
 
-        labels.add("20-30岁");
-        values.add(employeeReportMapper.countByAge(20, 30));
-        labels.add("31-40岁");
-        values.add(employeeReportMapper.countByAge(31, 40));
-        labels.add("41-50岁");
-        values.add(employeeReportMapper.countByAge(41, 50));
-        labels.add("大于50岁");
-        values.add(employeeReportMapper.countByAge(51, null));
-
-        EmployeeAgeReportVO vo = new EmployeeAgeReportVO();
-        vo.setLabels(labels);
-        vo.setValues(values);
-
-        return vo;
+        List<EmployeeAgeReportVO> vos = new ArrayList<>();
+        vos.add(buildEmployeeAgeReportVO("小于30岁", null, 30));
+        vos.add(buildEmployeeAgeReportVO("31-40岁", 31, 40));
+        vos.add(buildEmployeeAgeReportVO("41-50岁", 41, 50));
+        vos.add(buildEmployeeAgeReportVO("大于50岁", 51, null));
+        return vos;
     }
 
-    @Override
-    public EmployeeGenderReportVO getEmployeeGenderReport() {
-        EmployeeGenderReportVO vo = new EmployeeGenderReportVO();
-        vo.setMaleCount(employeeReportMapper.countByGender(0));
-        vo.setFemaleCount(employeeReportMapper.countByGender(1));
+    private EmployeeAgeReportVO buildEmployeeAgeReportVO(String label, Integer minAge, Integer maxAge) {
+        EmployeeAgeReportVO vo = new EmployeeAgeReportVO();
+        vo.setLabel(label);
+        vo.setMaleCount(employeeReportMapper.countByAgeAndGender(minAge, maxAge, 0));
+        vo.setFemaleCount(employeeReportMapper.countByAgeAndGender(minAge, maxAge, 1));
         return vo;
     }
 
