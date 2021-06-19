@@ -2,6 +2,7 @@ package byx.project.hrms.controller;
 
 import byx.project.hrms.common.Result;
 import byx.project.hrms.pojo.vo.DepartmentEmployeeCountVO;
+import byx.project.hrms.pojo.vo.DepartmentPositionCountVO;
 import byx.project.hrms.service.DepartmentReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,5 +28,13 @@ public class DepartmentReportController {
     @PostMapping("/employee-count")
     public Result<List<DepartmentEmployeeCountVO>> employeeCount() {
         return Result.success(departmentReportService.getDepartmentEmployeeCountReport());
+    }
+
+    /**
+     * 获取部门职位数报表
+     */
+    @PostMapping("/position-count")
+    public Result<List<DepartmentPositionCountVO>> positionCount() {
+        return Result.success(departmentReportService.getDepartmentPositionCountReport());
     }
 }
