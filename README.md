@@ -2,6 +2,10 @@
 
 HRMS人事管理系统后端 
 
+前端项目：[hrms-app](https://gitee.com/byx2000/hrms-app)
+
+预览地址：[http://182.92.74.74/](http://182.92.74.74/)
+
 ## 包结构
 
 * `byx.project.aspect`: 切面类
