@@ -41,14 +41,12 @@ public interface EmployeeMapper {
             "WHERE empNo = #{empNo}")
     EmployeeDetailVO get(EmployeeDetailQueryDTO dto);
 
-    @Select("""
-            SELECT e.empNo as empNo,
-                   e.name AS name,
-                   e.contact AS contact
-            FROM   employee e
-            JOIN   position p ON e.posID = p.id
-            WHERE  p.posNo = #{posNo}
-            """)
+    @Select("SELECT e.empNo as empNo, " +
+            "e.name AS name, " +
+            "e.contact AS contact " +
+            "FROM   employee e " +
+            "JOIN   position p ON e.posID = p.id " +
+            "WHERE  p.posNo = #{posNo}")
     List<PositionDetailVO.EmployeeVO> getByPosNo(PositionDetailQueryDTO dto);
 
     /**
